@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI.KAHANI.GHAR | AI Story House - Magical Hindi & English Stories</title>
+    <meta name="description" content="AI.KAHANI.GHAR - Where artificial intelligence (AI) and human imagination weave magical, scary, sci-fi, and moral stories.">
+    <meta name="keywords" content="AI Kahani Ghar, Hindi Stories, English Stories, AI Stories, Horror Stories, Fairy Tales, Moral Stories, Sci-fi stories, YouTube stories">
+    <meta name="author" content="AI.KAHANI.GHAR">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Rozha+One&family=Yatra+One&family=Martel:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Space Background Stardust Overlay -->
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+        <div class="glow-orb" id="orb-1"></div>
+        <div class="glow-orb" id="orb-2"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon"><img src="logo.jpg" alt="AI.KAHANI.GHAR Logo" class="logo-img"></span>
+                <span class="logo-text">AI.<span>KAHANI.GHAR</span></span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link active" onclick="setActiveLink(this)" data-translate="nav-home">मुख्य</a>
+                <a href="#stories" class="nav-link" onclick="setActiveLink(this)" data-translate="nav-stories">कहानियाँ</a>
+                <a href="#ai-generator" class="nav-link" onclick="setActiveLink(this)" data-translate="nav-generator">एआई रचयिता</a>
+                <a href="#videos" class="nav-link" onclick="setActiveLink(this)" data-translate="nav-videos">यूट्यूब गैलरी</a>
+                <a href="#about" class="nav-link" onclick="setActiveLink(this)" data-translate="nav-about">हमारे बारे में</a>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Language Switcher Selector -->
+                <button class="sound-toggle-btn" id="lang-toggle-btn" onclick="toggleLanguage()" title="भाषा बदलें / Change Language" style="border: 1px solid rgba(0, 242, 254, 0.3); background: rgba(0, 242, 254, 0.05);">
+                    <i data-lucide="languages"></i>
+                    <span id="lang-toggle-text">English</span>
+                </button>
+                
+                <button class="sound-toggle-btn" id="global-sound-btn" onclick="toggleGlobalSound()" title="बैकग्राउंड म्यूजिक चालू/बंद करें">
+                    <i data-lucide="volume-x" id="global-sound-icon"></i>
+                    <span data-translate="nav-sound-btn">संगीत</span>
+                </button>
+                <a href="https://www.youtube.com/channel/UCk-ZrVy9FFCj73EX2QO02Eg?sub_confirmation=1" target="_blank" class="btn btn-primary sub-btn" title="यूट्यूब चैनल 'AI.कहानी घर' पर जाएँ" data-translate="nav-subscribe">
+                    <i data-lucide="youtube"></i> AI.कहानी घर
+                </a>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+        <a href="#home" class="mobile-link" onclick="closeMobileMenu()" data-translate="nav-home">मुख्य</a>
+        <a href="#stories" class="mobile-link" onclick="closeMobileMenu()" data-translate="nav-stories">कहानियाँ</a>
+        <a href="#ai-generator" class="mobile-link" onclick="closeMobileMenu()" data-translate="nav-generator">एआई रचयिता</a>
+        <a href="#videos" class="mobile-link" onclick="closeMobileMenu()" data-translate="nav-videos">यूट्यूब गैलरी</a>
+        <a href="#about" class="mobile-link" onclick="closeMobileMenu()" data-translate="nav-about">हमारे बारे में</a>
+        <div class="mobile-nav-actions">
+            <!-- Mobile Language Switcher -->
+            <button class="sound-toggle-btn" id="mobile-lang-toggle-btn" onclick="toggleLanguage()" title="भाषा बदलें / Change Language" style="width: 100%; justify-content: center; margin-bottom: 10px; border: 1px solid rgba(0, 242, 254, 0.3); background: rgba(0, 242, 254, 0.05);">
+                <i data-lucide="languages"></i>
+                <span id="mobile-lang-toggle-text">English</span>
+            </button>
+            <a href="https://www.youtube.com/channel/UCk-ZrVy9FFCj73EX2QO02Eg?sub_confirmation=1" target="_blank" class="btn btn-primary sub-btn" style="width: 100%; justify-content: center; margin-top: 5px;" title="यूट्यूब चैनल 'AI.कहानी घर' पर जाएँ" data-translate="nav-subscribe">
+                <i data-lucide="youtube"></i> AI.कहानी घर
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge" data-translate="hero-badge">
+                    <i data-lucide="sparkles"></i> भारत का पहला एआई हिंदी कहानी मंच
+                </div>
+                <h1 class="hero-title" data-translate="hero-title">एआई कहानी घर</h1>
+                <p class="hero-subtitle" data-translate="hero-subtitle">जहाँ आधुनिक <span>कृत्रिम बुद्धिमत्ता (AI)</span> और पौराणिक <span>इंसानी कल्पना</span> मिलकर रचते हैं शब्दों का जादुई संसार। रहस्यमयी भूतिया खंडहेरों से लेकर सितारों के पार विज्ञान की अद्भुत यात्राओं तक...</p>
+                
+                <div class="hero-actions">
+                    <a href="#stories" class="btn btn-glow" data-translate="hero-btn-read">
+                        <i data-lucide="book-open"></i> कहानियाँ पढ़ें
+                    </a>
+                    <a href="#ai-generator" class="btn btn-outline" data-translate="hero-btn-generate">
+                        <i data-lucide="wand-2"></i> अपनी कहानी बनाएँ
+                    </a>
+                </div>
+
+                <div class="channel-stats">
+                    <div class="stat-item">
+                        <span class="stat-num" id="stat-subscribers" data-translate="stat-subscribers">50K+</span>
+                        <span class="stat-label" data-translate="stat-sub-lbl">यूट्यूब परिवार</span>
+                    </div>
+                    <div class="stat-border"></div>
+                    <div class="stat-item">
+                        <span class="stat-num">500+</span>
+                        <span class="stat-label" data-translate="stat-story-lbl">जादुई कहानियाँ</span>
+                    </div>
+                    <div class="stat-border"></div>
+                    <div class="stat-item">
+                        <span class="stat-num" id="stat-views" data-translate="stat-views">1M+</span>
+                        <span class="stat-label" data-translate="stat-views-lbl">कुल व्यूज</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="scene-container">
+                    <div class="portal-ring"></div>
+                    <div class="floating-book">
+                        <div class="book-cover">
+                            <span class="book-title">एआई<br>कहानी घर</span>
+                        </div>
+                        <div class="book-pages"></div>
+                    </div>
+                    <div class="portal-particles"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories & Search Section -->
+        <section id="stories" class="stories-section">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="stories-title">जादुई कहानियाँ</h2>
+                <p class="section-subtitle" data-translate="stories-subtitle">अपनी मनपसंद विधा चुनें और रहस्यमयी यात्रा पर निकल पड़ें।</p>
+                <div class="search-bar-container">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" id="search-input" data-translate-placeholder="search-placeholder" placeholder="शीर्षक या मुख्य शब्द से कहानी खोजें..." onkeyup="filterStories()">
+                </div>
+            </div>
+
+            <!-- Genre Tabs -->
+            <div class="genre-tabs">
+                <button class="genre-tab active" data-genre="all" onclick="setGenreFilter('all')" data-translate="genre-all">
+                    <i data-lucide="layout-grid"></i> सभी शैलियाँ
+                </button>
+                <button class="genre-tab" data-genre="horror" onclick="setGenreFilter('horror')" data-translate="genre-horror">
+                    👻 रहस्य और डर
+                </button>
+                <button class="genre-tab" data-genre="magic" onclick="setGenreFilter('magic')" data-translate="genre-magic">
+                    🧚 जादू और परियाँ
+                </button>
+                <button class="genre-tab" data-genre="moral" onclick="setGenreFilter('moral')" data-translate="genre-moral">
+                    🌱 ज्ञान और नीति
+                </button>
+                <button class="genre-tab" data-genre="scifi" onclick="setGenreFilter('scifi')" data-translate="genre-scifi">
+                    🚀 भविष्य और विज्ञान
+                </button>
+            </div>
+
+            <!-- Stories Grid -->
+            <div class="stories-grid" id="stories-grid">
+                <!-- Dynamic stories loaded via JS -->
+            </div>
+        </section>
+
+        <!-- Interactive AI Generator Section -->
+        <section id="ai-generator" class="generator-section">
+            <div class="glass-panel generator-container">
+                <div class="generator-form-side">
+                    <div class="section-header align-left">
+                        <span class="sub-heading" data-translate="gen-subheading"><i data-lucide="cpu"></i> स्वयं रचयिता बनें</span>
+                        <h2 class="section-title text-glow" data-translate="gen-title">एआई कहानी रचयिता</h2>
+                        <p class="section-subtitle" data-translate="gen-subtitle">नीचे दिए गए विवरण भरें और हमारा जादुई एआई आपके लिए एक अनोखी हिंदी कहानी तुरंत लिखेगा!</p>
+                    </div>
+
+                    <form id="ai-form" onsubmit="generateAIScript(event)">
+                        <div class="form-group">
+                            <label for="char-name" data-translate="gen-label-char"><i data-lucide="user"></i> मुख्य पात्र (नायक) का नाम:</label>
+                            <input type="text" id="char-name" data-translate-placeholder="gen-placeholder-char" placeholder="जैसे: आरव, माया, विक्रम, छोटी परी" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="setting-select" data-translate="gen-label-setting"><i data-lucide="map-pin"></i> कहानी का मुख्य स्थान (Setting):</label>
+                            <select id="setting-select">
+                                <option value="horror-fort">रहस्यमयी पुराना किला (Mystic Fort)</option>
+                                <option value="magic-forest">चमकता हुआ जादुई जंगल (Glowing Magic Forest)</option>
+                                <option value="future-city">साल 2099 का भविष्य का शहर (Cyber City 2099)</option>
+                                <option value="cloud-palace">बादलों के ऊपर परियों का महल (Cloud Palace)</option>
+                                <option value="underwater-world">समुद्र की गहराइयों का शहर (Submerged Kingdom)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="genre-select" data-translate="gen-label-genre"><i data-lucide="dices"></i> कहानी का प्रकार (Genre):</label>
+                            <div class="radio-cards-grid">
+                                <label class="radio-card">
+                                    <input type="radio" name="ai-genre" value="horror" checked>
+                                    <div class="radio-card-content">
+                                        <span class="icon">👻</span>
+                                        <span class="label" data-translate="gen-genre-horror">डरावनी & रहस्य</span>
+                                    </div>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="ai-genre" value="magic">
+                                    <div class="radio-card-content">
+                                        <span class="icon">🧚</span>
+                                        <span class="label" data-translate="gen-genre-magic">जादुई & रोमांच</span>
+                                    </div>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="ai-genre" value="moral">
+                                    <div class="radio-card-content">
+                                        <span class="icon">🌱</span>
+                                        <span class="label" data-translate="gen-genre-moral">प्रेरणादायक</span>
+                                    </div>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="ai-genre" value="scifi">
+                                    <div class="radio-card-content">
+                                        <span class="icon">🚀</span>
+                                        <span class="label" data-translate="gen-genre-scifi">भविष्य & विज्ञान</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-glow btn-block" id="generate-btn" data-translate="gen-btn-submit">
+                            <i data-lucide="wand-2"></i> जादुई कहानी बनाएँ
+                        </button>
+                    </form>
+                </div>
+
+                <div class="generator-result-side">
+                    <!-- Default Screen before Generation -->
+                    <div class="result-placeholder" id="result-placeholder">
+                        <div class="placeholder-animation">
+                            <div class="pulse-ring"></div>
+                            <i data-lucide="cpu" class="floating-icon"></i>
+                        </div>
+                        <h3 data-translate="gen-placeholder-title">आपका एआई साथी तैयार है!</h3>
+                        <p data-translate="gen-placeholder-desc">बाएँ हाथ पर दिए गए फॉर्म में अपनी पसंद दर्ज करें और जादुई बटन दबाकर एआई की रचनात्मकता देखें।</p>
+                    </div>
+
+                    <!-- Loading Screen -->
+                    <div class="result-loading" id="result-loading" style="display: none;">
+                        <div class="loader-circle">
+                            <div class="inner-loader"></div>
+                        </div>
+                        <h3 id="loader-status">एआई न्यूरॉन्स जाग रहे हैं...</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-fill" id="generator-progress"></div>
+                        </div>
+                        <ul class="loading-steps" id="loading-steps">
+                            <li class="active">प्लॉट की खोज जारी है...</li>
+                            <li>चरित्रों में प्राण फूँके जा रहे हैं...</li>
+                            <li>चित्र और दृश्य बनाए जा रहे हैं...</li>
+                        </ul>
+                    </div>
+
+                    <!-- Generated Output Display -->
+                    <div class="result-display" id="result-display" style="display: none;">
+                        <div class="result-header">
+                            <span class="badge badge-gold"><i data-lucide="sparkles"></i> एआई द्वारा रचित</span>
+                            <div class="result-actions">
+                                <button class="action-icon-btn" onclick="copyGeneratedStory()" title="कहानी कॉपी करें">
+                                    <i data-lucide="copy"></i>
+                                </button>
+                                <button class="action-icon-btn" id="tts-gen-btn" onclick="speakGeneratedStory()" title="कहानी सुनें">
+                                    <i data-lucide="volume-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="result-scroll-area">
+                            <h2 class="generated-title" id="gen-title">कहानी का शीर्षक</h2>
+                            
+                            <!-- AI Concept Image Card -->
+                            <div class="generated-art-placeholder">
+                                <div class="art-glow"></div>
+                                <div class="art-info">
+                                    <i data-lucide="image"></i>
+                                    <span>एआई विज़ुअल जनरेटेड: <span id="gen-art-desc">...</span></span>
+                                </div>
+                            </div>
+
+                            <div class="generated-body" id="gen-body">
+                                <!-- story paragraphs -->
+                            </div>
+                        </div>
+
+                        <div class="result-footer">
+                            <p>🌟 क्या यह कहानी पसंद आई? अपने दोस्तों के साथ साझा करें!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- YouTube Video Gallery Section -->
+        <section id="videos" class="videos-section">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="videos-title">यूट्यूब वीडियो दीर्घा (Videos)</h2>
+                <p class="section-subtitle" data-translate="videos-subtitle">हमारे यूट्यूब चैनल पर जाकर विज़ुअल्स और साउंड इफेक्ट्स के साथ पूरी एनिमेटेड कहानियों का मज़ा लें।</p>
+            </div>
+
+            <div class="videos-grid" id="youtube-videos-grid">
+                <!-- Videos will be dynamically loaded here from YouTube RSS -->
+            </div>
+
+            <!-- YouTube Channel Banner Card -->
+            <div class="channel-banner-card glass-panel">
+                <div class="banner-content">
+                    <h2 data-translate="banner-title">क्या आप नए वीडियो मिस नहीं करना चाहते?</h2>
+                    <p data-translate="banner-desc">हर मंगलवार और शनिवार को शाम 6 बजे रोमांचक नई हिंदी कहानियों के वीडियो देखने के लिए तुरंत लाल घंटी वाला बटन दबाएँ।</p>
+                    <a href="https://www.youtube.com/channel/UCk-ZrVy9FFCj73EX2QO02Eg?sub_confirmation=1" target="_blank" class="btn btn-primary btn-glow btn-lg" title="यूट्यूब चैनल 'AI.कहानी घर' पर जाएँ" data-translate="banner-btn">
+                        <i data-lucide="youtube"></i> AI.कहानी घर से जुड़ें
+                    </a>
+                </div>
+                <div class="banner-illustration">
+                    <div class="sub-bell">
+                        <i data-lucide="bell" class="bell-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us & Creators Section -->
+        <section id="about" class="about-section">
+            <div class="about-grid">
+                <div class="about-content-side">
+                    <span class="sub-heading" data-translate="about-subheading"><i data-lucide="info"></i> हमारे बारे में</span>
+                    <h2 class="section-title" data-translate="about-title">AI.KAHANI.GHAR कौन है?</h2>
+                    <p data-translate="about-desc">हम कलाकारों, कहानीकारों और तकनीक-प्रेमियों का एक समूह हैं जो हिंदी साहित्य और पौराणिक लोककथाओं को डिजिटल युग में पुनर्जीवित करने के मिशन पर निकले हैं।</p>
+                    
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-num"><i data-lucide="pencil-line"></i></div>
+                            <div class="step-info">
+                                <h3 data-translate="step1-title">1. जादुई पटकथा (Creative Prompts)</h3>
+                                <p data-translate="step1-desc">हम आधुनिक भाषाई मॉडल्स (AI) की मदद से रचनात्मक, सस्पेंस और रहस्यों से भरी अनोखी हिंदी कहानियों के ड्रॉफ्ट तैयार करते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-num"><i data-lucide="palette"></i></div>
+                            <div class="step-info">
+                                <h3 data-translate="step2-title">2. एआई कलाकृतियाँ (AI Visual Art)</h3>
+                                <p data-translate="step2-desc">Midjourney and Stable Diffusion जैसे विज़ुअल टूल्स से हम कहानियों के पात्रों और भव्य दुनिया को सजीव बनाते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-num"><i data-lucide="mic"></i></div>
+                            <div class="step-info">
+                                <h3 data-translate="step3-title">3. सिनेमैटिक अनुभव (Sound & Voice)</h3>
+                                <p data-translate="step3-desc">भव्य ध्वनि प्रभाव और मधुर हिंदी वॉइसओवर के मेल से हम एक ऐसा वीडियो बनाते हैं जिसे देखकर आप मंत्रमुग्ध हो जाएँ।</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Contact Form Panel -->
+                <div class="glass-panel contact-panel">
+                    <h3 data-translate="contact-title">💡 अपनी कहानी का सुझाव दें</h3>
+                    <p data-translate="contact-desc">यदि आपके दिमाग में कोई अनोखा आइडिया या लोककथा है, तो नीचे भेजें या हमें सीधे <strong><a href="mailto:AI.KAHANI.GHAR.26@GMAIL.COM" style="color: var(--secondary); text-decoration: none;">AI.KAHANI.GHAR.26@GMAIL.COM</a></strong> पर ईमेल करें।</p>
+                    
+                    <form id="contact-form" onsubmit="submitSuggestion(event)">
+                        <div class="form-group">
+                            <input type="text" id="contact-name" data-translate-placeholder="contact-name-placeholder" placeholder="आपका नाम" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="contact-email" data-translate-placeholder="contact-email-placeholder" placeholder="आपका ईमेल" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="contact-msg" rows="4" data-translate-placeholder="contact-msg-placeholder" placeholder="आपकी कहानी का प्लॉट या सुझाव..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-glow btn-block" data-translate="contact-btn">
+                            <i data-lucide="send"></i> सुझाव भेजें
+                        </button>
+                    </form>
+                    <div class="contact-success-msg" id="contact-success" style="display: none;">
+                        <i data-lucide="check-circle" class="success-icon"></i>
+                        <span data-translate="contact-success">धन्यवाद! आपका सुझाव सुरक्षित रख लिया गया है। जल्द ही कहानी रची जाएगी।</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-icon"><i data-lucide="sparkles"></i></span>
+                    <span class="logo-text">AI.<span>KAHANI.GHAR</span></span>
+                </a>
+                <p data-translate="footer-desc">कला और विज्ञान के मिलन से उत्पन्न हिंदी कहानियों का दिव्य भंडार।</p>
+                <div style="margin-top: 15px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
+                    <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted);">
+                        <i data-lucide="mail" style="width: 14px; height: 14px; color: var(--secondary);"></i>
+                        <a href="mailto:AI.KAHANI.GHAR.26@GMAIL.COM" style="color: inherit; text-decoration: none; transition: var(--transition-fast);" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='inherit'">AI.KAHANI.GHAR.26@GMAIL.COM</a>
+                    </span>
+                    <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted);">
+                        <i data-lucide="youtube" style="width: 14px; height: 14px; color: #ff3b3b;"></i>
+                        <a href="https://www.youtube.com/channel/UCk-ZrVy9FFCj73EX2QO02Eg?sub_confirmation=1" target="_blank" style="color: inherit; text-decoration: none; transition: var(--transition-fast);" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='inherit'" data-translate="footer-yt-link-text">यूट्यूब: AI.कहानी घर</a>
+                    </span>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/channel/UCk-ZrVy9FFCj73EX2QO02Eg?sub_confirmation=1" target="_blank" class="social-link" title="YouTube"><i data-lucide="youtube"></i></a>
+                    <a href="#" class="social-link" title="Instagram"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="social-link" title="Telegram"><i data-lucide="send"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links-group">
+                <h3 data-translate="footer-links-title">त्वरित लिंक्स</h3>
+                <ul class="footer-links">
+                    <li><a href="#home" data-translate="footer-home">मुख्य पृष्ठ</a></li>
+                    <li><a href="#stories" data-translate="footer-stories">कहानियों का संग्रह</a></li>
+                    <li><a href="#ai-generator" data-translate="footer-gen">एआई कहानी मशीन</a></li>
+                    <li><a href="#videos" data-translate="footer-videos">वीडियोस</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-group">
+                <h3 data-translate="footer-genres-title">श्रेणियाँ</h3>
+                <ul class="footer-links">
+                    <li><a href="#stories" onclick="setGenreFilter('horror')" data-translate="footer-cat-horror">डरावनी कहानियाँ</a></li>
+                    <li><a href="#stories" onclick="setGenreFilter('magic')" data-translate="footer-cat-magic">परियों की दुनिया</a></li>
+                    <li><a href="#stories" onclick="setGenreFilter('moral')" data-translate="footer-cat-moral">शिक्षाप्रद कहानियाँ</a></li>
+                    <li><a href="#stories" onclick="setGenreFilter('scifi')" data-translate="footer-cat-scifi">साइंस-फिक्शन</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h3 data-translate="newsletter-title">कहानी की खुराक</h3>
+                <p data-translate="newsletter-desc">हमारी नई कहानियों और पॉडकास्ट की ईमेल सूचना प्राप्त करने के लिए रजिस्टर करें।</p>
+                <div class="newsletter-form">
+                    <input type="email" data-translate-placeholder="newsletter-placeholder" placeholder="आपका ईमेल..." id="news-email" required>
+                    <button class="btn btn-primary" onclick="subscribeNewsletter()"><i data-lucide="bell"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p data-translate="footer-copyright">&copy; 2026 AI.KAHANI.GHAR. सभी अधिकार सुरक्षित हैं। | एआई के द्वारा निर्मित सप्रेम भेंट।</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Story Reader Modal -->
+    <div class="modal-overlay" id="story-reader-modal">
+        <div class="modal-content glass-panel reader-panel">
+            <button class="modal-close" onclick="closeStoryReader()"><i data-lucide="x"></i></button>
+            
+            <div class="reader-progress-container">
+                <div class="reader-progress-bar" id="reader-progress"></div>
+            </div>
+
+            <div class="reader-header">
+                <span class="badge" id="reader-genre-badge">👻 रहस्य</span>
+                <h1 class="reader-title" id="reader-title">कहानी का शीर्षक</h1>
+                <div class="reader-controls">
+                    <!-- Text Resizer -->
+                    <button class="control-btn font-btn" onclick="adjustReaderFont(-1)" title="अक्षर छोटे करें"><i data-lucide="minus"></i></button>
+                    <span class="control-label font-size-display" id="font-size-val">100%</span>
+                    <button class="control-btn font-btn" onclick="adjustReaderFont(1)" title="अक्षर बड़े करें"><i data-lucide="plus"></i></button>
+                    
+                    <div class="vertical-divider"></div>
+                    
+                    <!-- Ambient Sound Controls -->
+                    <button class="control-btn sound-btn" id="ambient-btn" onclick="toggleAmbientSound()" title="परिवेश संगीत (Ambient Music) चालू करें">
+                        <i data-lucide="music" id="ambient-icon"></i>
+                        <span class="sound-status-text" id="ambient-text">संगीत चालू</span>
+                    </button>
+                    
+                    <select id="ambient-theme" onchange="changeAmbientTheme()" title="बैकग्राउंड माहौल चुनें">
+                        <option value="mystic">जादुई वातावरण (Mystic)</option>
+                        <option value="horror">डरावनी रात (Horror Night)</option>
+                        <option value="forest">शांत जंगल (Calm Forest)</option>
+                        <option value="future">भविष्य काल (Cyber Wave)</option>
+                    </select>
+
+                    <div class="vertical-divider"></div>
+
+                    <!-- Voice Synthesis (TTS) -->
+                    <button class="control-btn tts-btn" id="tts-play-btn" onclick="toggleTTS()" title="कहानी बोलकर सुनाएँ">
+                        <i data-lucide="volume-2" id="tts-icon"></i>
+                        <span class="tts-status-text" id="tts-text">सुनाएँ</span>
+                    </button>
+                    <select id="tts-speed" onchange="changeTTSSpeed()" title="आवाज की गति">
+                        <option value="0.8">धीमी</option>
+                        <option value="1" selected>सामान्य</option>
+                        <option value="1.2">तेज़</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Immersive Cover Graphic -->
+            <div class="reader-cover-visual" id="reader-cover-bg">
+                <div class="cover-overlay"></div>
+                <div class="cover-title-overlay">
+                    <span id="reader-banner-meta">5 मिनट पठन | 📚 अध्याय 1</span>
+                </div>
+            </div>
+
+            <div class="reader-body" id="reader-body-content">
+                <!-- Story paragraphs loaded dynamically -->
+            </div>
+
+            <div class="reader-footer">
+                <div class="rating-box">
+                    <span>कहानी कैसी लगी?</span>
+                    <div class="stars-rating">
+                        <i data-lucide="star" class="star-icon" onclick="rateStory(1)"></i>
+                        <i data-lucide="star" class="star-icon" onclick="rateStory(2)"></i>
+                        <i data-lucide="star" class="star-icon" onclick="rateStory(3)"></i>
+                        <i data-lucide="star" class="star-icon" onclick="rateStory(4)"></i>
+                        <i data-lucide="star" class="star-icon" onclick="rateStory(5)"></i>
+                    </div>
+                </div>
+                <div class="reader-footer-actions">
+                    <a href="https://www.youtube.com/channel/UCk-ZrVy9FFCj73EX2QO02Eg?sub_confirmation=1" target="_blank" class="btn btn-primary" title="यूट्यूब चैनल 'AI.कहानी घर' पर वीडियो देखें" data-translate="reader-yt-btn">
+                        <i data-lucide="youtube"></i> AI.कहानी घर पर वीडियो देखें
+                    </a>
+                    <button class="btn btn-outline" onclick="closeStoryReader()" data-translate="reader-close-btn">पढ़ना समाप्त</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- YouTube Video Modal Player -->
+    <div class="modal-overlay" id="video-modal">
+        <div class="modal-content video-player-panel glass-panel">
+            <button class="modal-close" onclick="closeVideoModal()"><i data-lucide="x"></i></button>
+            <h2 id="video-modal-title" class="video-modal-title">वीडियो शीर्षक</h2>
+            <div class="iframe-container">
+                <iframe id="youtube-player" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-modal-footer">
+                <a href="https://www.youtube.com/channel/UCk-ZrVy9FFCj73EX2QO02Eg?sub_confirmation=1" target="_blank" class="btn btn-primary btn-glow" data-translate="video-modal-sub">
+                    <i data-lucide="youtube"></i> हमारे चैनल को सब्सक्राइब करें
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Music Audio Elements (Synth API or WebAudio API) -->
+    <!-- We will use custom synthesizers inside JS to prevent external media loading issues, making it extremely premium and fully reliable! -->
+
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>
