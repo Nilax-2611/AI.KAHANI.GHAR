@@ -153,12 +153,12 @@ function initAudioContext() {
 function startSynthesizedAmbient(theme) {
     initAudioContext();
     stopSynthesizedAmbient();
-    
+
     isAmbientPlaying = true;
     currentAmbientTheme = theme;
-    
+
     const dest = audioCtx.destination;
-    
+
     // Create nodes
     const mainGain = audioCtx.createGain();
     mainGain.gain.setValueAtTime(0.08, audioCtx.currentTime); // Low volume background drone
@@ -175,10 +175,10 @@ function startSynthesizedAmbient(theme) {
 
         osc1.type = 'sawtooth';
         osc1.frequency.setValueAtTime(55, audioCtx.currentTime); // A1 note
-        
+
         osc2.type = 'triangle';
         osc2.frequency.setValueAtTime(110.5, audioCtx.currentTime); // A2 detuned
-        
+
         filter.type = 'lowpass';
         filter.frequency.setValueAtTime(250, audioCtx.currentTime);
         filter.Q.setValueAtTime(7, audioCtx.currentTime);
@@ -190,7 +190,7 @@ function startSynthesizedAmbient(theme) {
         // Connect LFO to filter frequency
         lfo.connect(lfoGain);
         lfoGain.connect(filter.frequency);
-        
+
         // Connect Oscillators to filter and main gain
         osc1.connect(filter);
         osc2.connect(filter);
@@ -207,7 +207,7 @@ function startSynthesizedAmbient(theme) {
 
         // Dynamic high-pitched golden chimes triggers
         playMysticChimes(mainGain);
-        
+
     } else if (theme === 'horror') {
         // Haunting, scary low sweeping drone
         const osc1 = audioCtx.createOscillator();
@@ -218,10 +218,10 @@ function startSynthesizedAmbient(theme) {
 
         osc1.type = 'sine';
         osc1.frequency.setValueAtTime(48, audioCtx.currentTime); // E1 (creepy note)
-        
+
         osc2.type = 'triangle';
         osc2.frequency.setValueAtTime(48.7, audioCtx.currentTime); // detuned dissonant wave
-        
+
         filter.type = 'lowpass';
         filter.frequency.setValueAtTime(150, audioCtx.currentTime);
         filter.Q.setValueAtTime(10, audioCtx.currentTime);
@@ -243,7 +243,7 @@ function startSynthesizedAmbient(theme) {
 
         ambientNodes.drone = [osc1, osc2, lfo];
         ambientNodes.filter = filter;
-        
+
         // Random dissonant screech timer
         playScaryScreeches(mainGain);
 
@@ -297,10 +297,10 @@ function startSynthesizedAmbient(theme) {
 
         osc1.type = 'sawtooth';
         osc1.frequency.setValueAtTime(65.41, audioCtx.currentTime); // C2
-        
+
         osc2.type = 'triangle';
         osc2.frequency.setValueAtTime(130.81, audioCtx.currentTime); // C3
-        
+
         filter.type = 'lowpass';
         filter.frequency.setValueAtTime(400, audioCtx.currentTime);
 
@@ -308,13 +308,13 @@ function startSynthesizedAmbient(theme) {
         const pulseLfo = audioCtx.createOscillator();
         pulseLfo.type = 'square';
         pulseLfo.frequency.setValueAtTime(1.5, audioCtx.currentTime); // 1.5Hz beat
-        
+
         const pulseGain = audioCtx.createGain();
         pulseGain.gain.setValueAtTime(0.4, audioCtx.currentTime);
 
         // Map square wave to volume pulsing
         pulseLfo.connect(pulseGain);
-        
+
         osc1.connect(filter);
         osc2.connect(filter);
         filter.connect(pulser);
@@ -339,7 +339,7 @@ function startSynthesizedAmbient(theme) {
 
 function stopSynthesizedAmbient() {
     isAmbientPlaying = false;
-    
+
     // Clear dynamic timers
     if (ambientNodes.chimeTimer) {
         clearTimeout(ambientNodes.chimeTimer);
@@ -350,28 +350,28 @@ function stopSynthesizedAmbient() {
     if (ambientNodes.drone) {
         if (Array.isArray(ambientNodes.drone)) {
             ambientNodes.drone.forEach(node => {
-                try { node.stop(); } catch(e) {}
-                try { node.disconnect(); } catch(e) {}
+                try { node.stop(); } catch (e) { }
+                try { node.disconnect(); } catch (e) { }
             });
         } else {
-            try { ambientNodes.drone.stop(); } catch(e) {}
-            try { ambientNodes.drone.disconnect(); } catch(e) {}
+            try { ambientNodes.drone.stop(); } catch (e) { }
+            try { ambientNodes.drone.disconnect(); } catch (e) { }
         }
         ambientNodes.drone = null;
     }
 
     if (ambientNodes.filter) {
-        try { ambientNodes.filter.disconnect(); } catch(e) {}
+        try { ambientNodes.filter.disconnect(); } catch (e) { }
         ambientNodes.filter = null;
     }
 
     if (ambientNodes.lfo) {
-        try { ambientNodes.lfo.disconnect(); } catch(e) {}
+        try { ambientNodes.lfo.disconnect(); } catch (e) { }
         ambientNodes.lfo = null;
     }
 
     if (ambientNodes.gain) {
-        try { ambientNodes.gain.disconnect(); } catch(e) {}
+        try { ambientNodes.gain.disconnect(); } catch (e) { }
         ambientNodes.gain = null;
     }
 
@@ -392,7 +392,7 @@ function playMysticChimes(targetGain) {
 
         const osc = audioCtx.createOscillator();
         const gainNode = audioCtx.createGain();
-        
+
         osc.type = 'sine';
         osc.frequency.setValueAtTime(chosenFreq, audioCtx.currentTime);
 
@@ -421,14 +421,14 @@ function playScaryScreeches(targetGain) {
 
         const osc = audioCtx.createOscillator();
         const gainNode = audioCtx.createGain();
-        
+
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(100, audioCtx.currentTime); // start low
         osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 1.5); // scary slide up
 
         gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-        gainNode.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime + 0.4); 
-        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.0); 
+        gainNode.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime + 0.4);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.0);
 
         // Filter high frequencies slightly
         const bpf = audioCtx.createBiquadFilter();
@@ -492,7 +492,7 @@ function toggleGlobalSound() {
     globalSoundEnabled = !globalSoundEnabled;
     const globalSoundBtn = document.getElementById('global-sound-btn');
     const globalSoundIcon = document.getElementById('global-sound-icon');
-    
+
     if (globalSoundEnabled) {
         globalSoundBtn.classList.add('active');
         globalSoundIcon.setAttribute('data-lucide', 'volume-2');
@@ -503,7 +503,65 @@ function toggleGlobalSound() {
         globalSoundIcon.setAttribute('data-lucide', 'volume-x');
         stopSynthesizedAmbient();
     }
+    // Control HTML background music element
+    const bgAudio = document.getElementById('bg-music');
+    if (bgAudio) {
+        if (globalSoundEnabled) {
+            bgAudio.volume = 0.25; // Comfortable background volume
+            bgAudio.play().catch(() => { });
+            
+            // Speak the credit voice announcement
+            speakMusicCredit();
+        } else {
+            bgAudio.pause();
+            bgAudio.currentTime = 0;
+        }
+    }
     lucide.createIcons(); // refresh icons
+}
+
+function speakMusicCredit() {
+    if ('speechSynthesis' in window) {
+        // Cancel any currently speaking speech to prevent overlaps
+        window.speechSynthesis.cancel();
+
+        const bgAudio = document.getElementById('bg-music');
+        let originalVolume = 0.25;
+        if (bgAudio) {
+            originalVolume = bgAudio.volume;
+            bgAudio.volume = 0.08; // Duck volume to 8% so voice is clearly heard
+        }
+
+        const isEn = (typeof currentLang !== 'undefined' && currentLang === 'en');
+        const text = isEn ? "Website powered by Nilax Soni" : "निलाक्ष सोनी द्वारा संचालित वेबसाइट";
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        // Find best voice for active language
+        const voices = window.speechSynthesis.getVoices();
+        let targetVoice;
+        if (isEn) {
+            targetVoice = voices.find(voice => voice.lang.toLowerCase().includes('en'));
+        } else {
+            targetVoice = voices.find(voice => voice.lang.toLowerCase().includes('hi'));
+        }
+        if (targetVoice) {
+            utterance.voice = targetVoice;
+        }
+        
+        utterance.rate = 0.95; // Slightly relaxed pace for professional voice feel
+        utterance.pitch = 1.0;
+        
+        const restoreVolume = () => {
+            if (bgAudio) {
+                bgAudio.volume = originalVolume;
+            }
+        };
+
+        utterance.onend = restoreVolume;
+        utterance.onerror = restoreVolume;
+
+        window.speechSynthesis.speak(utterance);
+    }
 }
 
 function toggleAmbientSound() {
@@ -512,7 +570,7 @@ function toggleAmbientSound() {
     } else {
         const theme = document.getElementById('ambient-theme').value;
         startSynthesizedAmbient(theme);
-        
+
         // Keep global sound synced
         globalSoundEnabled = true;
         document.getElementById('global-sound-btn').classList.add('active');
@@ -532,7 +590,7 @@ function updateAmbientUI() {
     const ambientBtn = document.getElementById('ambient-btn');
     const ambientIcon = document.getElementById('ambient-icon');
     const ambientText = document.getElementById('ambient-text');
-    
+
     if (!ambientBtn) return; // protect modal context issues
 
     if (isAmbientPlaying) {
@@ -562,8 +620,8 @@ function renderStoriesGrid() {
         const matchesGenre = currentGenreFilter === 'all' || story.genre === currentGenreFilter;
         const titleText = isEn ? (story.titleEn || story.title) : story.title;
         const excerptText = isEn ? (story.excerptEn || story.excerpt) : story.excerpt;
-        const matchesSearch = titleText.toLowerCase().includes(searchVal) || 
-                              excerptText.toLowerCase().includes(searchVal);
+        const matchesSearch = titleText.toLowerCase().includes(searchVal) ||
+            excerptText.toLowerCase().includes(searchVal);
         return matchesGenre && matchesSearch;
     });
 
@@ -583,7 +641,7 @@ function renderStoriesGrid() {
         const card = document.createElement('div');
         card.className = "story-card glass-panel";
         card.setAttribute('onclick', `openStoryReader('${story.id}')`);
-        
+
         let badgeClass = "badge-gold";
         if (story.genre === 'horror') badgeClass = "badge-red";
         if (story.genre === 'scifi') badgeClass = "badge-blue";
@@ -618,13 +676,13 @@ function renderStoriesGrid() {
         `;
         grid.appendChild(card);
     });
-    
+
     lucide.createIcons();
 }
 
 function setGenreFilter(genre) {
     currentGenreFilter = genre;
-    
+
     // Update active tab UI
     const tabs = document.querySelectorAll('.genre-tab');
     tabs.forEach(tab => {
@@ -652,7 +710,7 @@ function openStoryReader(storyId) {
     if (!story) return;
 
     currentReadingStory = story;
-    
+
     const isEn = (typeof currentLang !== 'undefined' && currentLang === 'en');
     const displayTitle = isEn ? (story.titleEn || story.title) : story.title;
     const displayGenre = isEn ? (story.genreHindiEn || story.genreHindi) : story.genreHindi;
@@ -664,7 +722,7 @@ function openStoryReader(storyId) {
     // Set text elements
     document.getElementById('reader-title').innerText = displayTitle;
     document.getElementById('reader-genre-badge').innerText = displayGenre;
-    
+
     let badge = document.getElementById('reader-genre-badge');
     badge.className = "badge"; // reset
     if (story.genre === 'horror') badge.classList.add('badge-red');
@@ -691,7 +749,7 @@ function openStoryReader(storyId) {
     readerFontSize = 100;
     document.getElementById('font-size-val').innerText = `${readerFontSize}%`;
     bodyContent.style.fontSize = "1.15rem";
-    
+
     // Sync Ambient Sound theme dropdown to match story genre
     const ambientSelect = document.getElementById('ambient-theme');
     if (story.genre === 'horror') ambientSelect.value = 'horror';
@@ -713,10 +771,10 @@ function openStoryReader(storyId) {
     const modal = document.getElementById('story-reader-modal');
     modal.style.display = "flex";
     setTimeout(() => modal.classList.add('open'), 10);
-    
+
     // Track modal scrolling for reading progress bar
     const modalContent = modal.querySelector('.modal-content');
-    modalContent.onscroll = function() {
+    modalContent.onscroll = function () {
         const totalScrollHeight = modalContent.scrollHeight - modalContent.clientHeight;
         if (totalScrollHeight > 0) {
             const percent = (modalContent.scrollTop / totalScrollHeight) * 100;
@@ -729,7 +787,7 @@ function openStoryReader(storyId) {
 
 function closeStoryReader() {
     stopTTS(); // stop narration
-    
+
     const modal = document.getElementById('story-reader-modal');
     modal.classList.remove('open');
     setTimeout(() => {
@@ -749,7 +807,7 @@ function adjustReaderFont(dir) {
     readerFontSize += dir * 10;
     if (readerFontSize < 80) readerFontSize = 80;
     if (readerFontSize > 150) readerFontSize = 150;
-    
+
     document.getElementById('font-size-val').innerText = `${readerFontSize}%`;
     document.getElementById('reader-body-content').style.fontSize = `${(readerFontSize / 100) * 1.15}rem`;
 }
@@ -777,7 +835,7 @@ function startTTS() {
     stopTTS(); // clear active
 
     isNarrating = true;
-    
+
     // Gather story script
     let storyParagraphs = [];
     if (currentReadingStory) {
@@ -808,7 +866,7 @@ function speakParagraphSequence() {
 
     const textToSpeak = spokenParagraphs[spokenParagraphIndex];
     ttsUtterance = new SpeechSynthesisUtterance(textToSpeak);
-    
+
     // Set speech speed
     const speedSelect = document.getElementById('tts-speed');
     const speed = speedSelect ? parseFloat(speedSelect.value) : 1.0;
@@ -823,13 +881,13 @@ function speakParagraphSequence() {
     } else {
         targetVoice = voices.find(voice => voice.lang.toLowerCase().includes('hi'));
     }
-    
+
     if (targetVoice) {
         ttsUtterance.voice = targetVoice;
     }
 
     // Highlight text boundary if supported by Speech API (word by word highlighter)
-    ttsUtterance.onboundary = function(event) {
+    ttsUtterance.onboundary = function (event) {
         if (event.name === 'word') {
             const pId = currentReadingStory ? `reader-p-${spokenParagraphIndex}` : 'gen-body';
             const element = document.getElementById(pId);
@@ -837,11 +895,11 @@ function speakParagraphSequence() {
                 // Approximate visual word highlighting
                 const origText = spokenParagraphs[spokenParagraphIndex];
                 const charIndex = event.charIndex;
-                
+
                 // Find nearest word bounds
                 let endWordIndex = origText.indexOf(' ', charIndex);
                 if (endWordIndex === -1) endWordIndex = origText.length;
-                
+
                 const before = origText.substring(0, charIndex);
                 const word = origText.substring(charIndex, endWordIndex);
                 const after = origText.substring(endWordIndex);
@@ -851,7 +909,7 @@ function speakParagraphSequence() {
         }
     };
 
-    ttsUtterance.onend = function() {
+    ttsUtterance.onend = function () {
         // Clean highlight on complete paragraph
         resetSpeechHighlight(spokenParagraphIndex);
 
@@ -864,7 +922,7 @@ function speakParagraphSequence() {
         }
     };
 
-    ttsUtterance.onerror = function(e) {
+    ttsUtterance.onerror = function (e) {
         console.error("TTS speech error", e);
         stopTTS();
     };
@@ -878,14 +936,14 @@ function stopTTS() {
     if (ttsSynth) {
         ttsSynth.cancel();
     }
-    
+
     // Clean all paragraph visual overlays
     if (spokenParagraphs) {
         for (let i = 0; i < spokenParagraphs.length; i++) {
             resetSpeechHighlight(i);
         }
     }
-    
+
     // Reset generated story visual too
     const genBody = document.getElementById('gen-body');
     if (genBody && generatedStoryActive) {
@@ -970,7 +1028,7 @@ function updateTTSUI(playing) {
         playBtn.classList.add('active');
         playIcon.setAttribute('data-lucide', 'volume-x');
         playText.innerText = "रोकें";
-        
+
         if (genPlayBtn) {
             genPlayBtn.classList.add('active');
             genPlayBtn.querySelector('i').setAttribute('data-lucide', 'volume-x');
@@ -979,7 +1037,7 @@ function updateTTSUI(playing) {
         playBtn.classList.remove('active');
         playIcon.setAttribute('data-lucide', 'volume-2');
         playText.innerText = "सुनाएँ";
-        
+
         if (genPlayBtn) {
             genPlayBtn.classList.remove('active');
             genPlayBtn.querySelector('i').setAttribute('data-lucide', 'volume-2');
@@ -1063,7 +1121,7 @@ function generateAIScript(event) {
     const charName = document.getElementById('char-name').value.trim();
     const settingSelect = document.getElementById('setting-select');
     const settingText = settingSelect.options[settingSelect.selectedIndex].text;
-    
+
     // Get checked radio genre
     const genres = document.getElementsByName('ai-genre');
     let chosenGenre = 'horror';
@@ -1077,7 +1135,7 @@ function generateAIScript(event) {
     document.getElementById('result-placeholder').style.display = "none";
     document.getElementById('result-display').style.display = "none";
     document.getElementById('result-loading').style.display = "block";
-    
+
     // Stop active audio/TTS during synthesis
     stopTTS();
 
@@ -1086,11 +1144,11 @@ function generateAIScript(event) {
     steps[0].className = "active";
     steps[1].className = "";
     steps[2].className = "";
-    
+
     let progress = 0;
     const progressFill = document.getElementById('generator-progress');
     const loaderStatus = document.getElementById('loader-status');
-    
+
     const interval = setInterval(() => {
         progress += 5;
         progressFill.style.width = `${progress}%`;
@@ -1115,7 +1173,7 @@ function generateAIScript(event) {
 
 function showGeneratedStory(hero, setting, genre) {
     const templates = storyCompilationsTemplates[genre];
-    
+
     // Compile Title
     const randomTitleSuffix = templates.title[Math.floor(Math.random() * templates.title.length)];
     generatedStoryTitle = `${setting} ${randomTitleSuffix}`;
@@ -1148,7 +1206,7 @@ function showGeneratedStory(hero, setting, genre) {
     // Hide loader, show display
     document.getElementById('result-loading').style.display = "none";
     document.getElementById('result-display').style.display = "block";
-    
+
     lucide.createIcons();
 }
 
@@ -1172,7 +1230,7 @@ function speakGeneratedStory() {
 function openVideoModal(url, title) {
     const modal = document.getElementById('video-modal');
     document.getElementById('video-modal-title').innerText = title;
-    
+
     // Start video source (safely appending standard configs)
     document.getElementById('youtube-player').src = `${url}?autoplay=1&mute=0&rel=0`;
 
@@ -1194,7 +1252,7 @@ function closeVideoModal() {
 
 async function submitSuggestion(event) {
     event.preventDefault();
-    
+
     const name = document.getElementById('contact-name').value.trim();
     const email = document.getElementById('contact-email').value.trim();
     const msg = document.getElementById('contact-msg').value.trim();
@@ -1216,9 +1274,9 @@ async function submitSuggestion(event) {
     }
 
     try {
-        const response = await fetch("https://formsubmit.co/ajax/ai.kahani.ghar.26@gmail.com", {
+        const response = await fetch("https://formsubmit.co/ajax/AI.KAHANI.GHAR.26@GMAIL.COM", {
             method: "POST",
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
@@ -1234,7 +1292,7 @@ async function submitSuggestion(event) {
             // Success response
             document.getElementById('contact-form').style.display = "none";
             document.getElementById('contact-success').style.display = "flex";
-            
+
             // Trigger beautiful synth sound chimes for form submission
             initAudioContext();
             const osc = audioCtx.createOscillator();
@@ -1310,7 +1368,7 @@ function setActiveLink(clickedLink) {
 function toggleMobileMenu() {
     const nav = document.getElementById('mobile-nav');
     const icon = document.getElementById('menu-icon');
-    
+
     nav.classList.toggle('open');
     if (nav.classList.contains('open')) {
         icon.setAttribute('data-lucide', 'x');
@@ -1368,10 +1426,10 @@ const translations = {
         "gen-hero-label": "Main Character",
         "gen-setting-label": "Setting / Location",
         "gen-genre-label": "Story Genre",
-        "gen-genre-horror": "👻 Horror / Mystery",
-        "gen-genre-magic": "🧚 Magical / Fairy Tale",
-        "gen-genre-scifi": "🚀 Sci-Fi / Future",
-        "gen-genre-moral": "🌱 Moral / Wisdom",
+        "gen-genre-horror": "Horror / Mystery",
+        "gen-genre-magic": "Magical / Fairy Tale",
+        "gen-genre-scifi": "Sci-Fi / Future",
+        "gen-genre-moral": "Moral / Wisdom",
         "gen-btn": '<i data-lucide="wand-2"></i> Generate Story with AI',
         "gen-loading-text": "AI is weaving a magical story for you...",
         "gen-copy-btn": '<i data-lucide="copy"></i> Copy',
@@ -1416,7 +1474,7 @@ const translations = {
         "footer-cat-scifi": "Sci-Fi",
         "newsletter-title": "Story Dose",
         "newsletter-desc": "Register to receive email notifications about our new stories and podcasts.",
-        "footer-copyright": "© 2026 AI.KAHANI.GHAR. All rights reserved. | Crafted with love by AI.",
+        "footer-copyright": "© 2026 AI.KAHANI.GHAR. All rights reserved. | Powered by Nilax Soni",
 
         // Reader Modal
         "reader-yt-btn": '<i data-lucide="youtube"></i> Watch Video on AI.KAHANI.GHAR',
@@ -1462,10 +1520,10 @@ const translations = {
         "gen-hero-label": "मुख्य पात्र",
         "gen-setting-label": "जगह / सेटिंग",
         "gen-genre-label": "कहानी की शैली",
-        "gen-genre-horror": "👻 भूतिया / रहस्य",
-        "gen-genre-magic": "🧚 जादुई / परी-कथा",
-        "gen-genre-scifi": "🚀 साइंस-फिक्शन / भविष्य",
-        "gen-genre-moral": "🌱 शिक्षाप्रद / नीति",
+        "gen-genre-horror": "भूतिया / रहस्य",
+        "gen-genre-magic": "जादुई / परी-कथा",
+        "gen-genre-scifi": "साइंस-फिक्शन / भविष्य",
+        "gen-genre-moral": "शिक्षाप्रद / नीति",
         "gen-btn": '<i data-lucide="wand-2"></i> एआई से कहानी बनाएँ',
         "gen-loading-text": "एआई आपके लिए एक जादुई कहानी रच रहा है...",
         "gen-copy-btn": '<i data-lucide="copy"></i> कॉपी करें',
@@ -1506,7 +1564,7 @@ const translations = {
         "footer-cat-scifi": "साइंस-फिक्शन",
         "newsletter-title": "कहानी की खुराक",
         "newsletter-desc": "हमारी नई कहानियों और पॉडकास्ट की ईमेल सूचना प्राप्त करने के लिए रजिस्टर करें।",
-        "footer-copyright": "© 2026 AI.KAHANI.GHAR. सभी अधिकार सुरक्षित हैं। | एआई के द्वारा निर्मित सप्रेम भेंट।",
+        "footer-copyright": "© 2026 AI.KAHANI.GHAR. सभी अधिकार सुरक्षित हैं। | निलाक्ष सोनी द्वारा संचालित (Powered by Nilax Soni)",
 
         "reader-yt-btn": '<i data-lucide="youtube"></i> AI.कहानी घर पर वीडियो देखें',
         "video-modal-sub": '<i data-lucide="youtube"></i> हमारे चैनल को सब्सक्राइब करें',
@@ -1571,18 +1629,18 @@ async function fetchLatestYouTubeVideos() {
     try {
         const response = await fetch(apiUrl);
         const data = await response.json();
-        
+
         if (data.status === 'ok' && data.items && data.items.length > 0) {
             grid.innerHTML = ''; // clear loading state
-            
+
             // Limit to recent 3 videos
             const recentVideos = data.items.slice(0, 3);
-            
+
             recentVideos.forEach((video, index) => {
                 // Extract video ID from URL
                 const videoId = video.link.split('v=')[1] || video.guid.split(':')[2];
                 const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-                
+
                 // Format date roughly
                 const pubDate = new Date(video.pubDate);
                 const dateStr = pubDate.toLocaleDateString('hi-IN') || pubDate.toLocaleDateString();
@@ -1626,10 +1684,10 @@ async function fetchLatestYouTubeVideos() {
 window.addEventListener('DOMContentLoaded', () => {
     // Apply default language (English) to compile all translated elements immediately on load
     applyLanguage(currentLang);
-    
+
     // Fetch latest YouTube videos automatically
     fetchLatestYouTubeVideos();
-    
+
     // Lucide Icons Render
     lucide.createIcons();
 
@@ -1640,7 +1698,7 @@ window.addEventListener('DOMContentLoaded', () => {
 function animateSubscriberCount() {
     const subNum = document.getElementById('stat-subscribers');
     const viewNum = document.getElementById('stat-views');
-    
+
     let subVal = 0;
     const subTarget = 50; // K
     const subInterval = setInterval(() => {
